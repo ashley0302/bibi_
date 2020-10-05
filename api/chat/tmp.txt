@@ -1,0 +1,23 @@
+/*const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const mongoose = require('mongoose');
+const Chat = require("../models/tmp.js");
+
+
+io.on('connection', async (socket) => {
+
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+
+    socket.on('chat message', (num, name, message) => {
+        io.to(room[num]).emit('chat message', name, message);
+        Chat.create({
+            name,
+            message,
+        });
+    });
+});
+*/

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=”utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Wallpoet&display=swap" rel="stylesheet">
+    <title>📟삐삐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #4fb0c6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #sendMessage {
+            background-color: #4fb0c6;
+            display: flex;
+
+            flex-direction: column;
+        }
+
+        form input {
+            border: 0;
+            padding: 10px;
+            border-radius: 0.5rem;
+        }
+
+
+        #message {
+            background-color: #4f86c6;
+            width: 300px;
+            margin: auto;
+            text-align: center;
+            height: 104px;
+            outline: none;
+            color: #ffffff;
+            font-size: 70px;
+            font-family: 'Wallpoet', cursive;
+            margin-bottom: 10px;
+
+        }
+
+        #email {
+            background-color: #71a0d8;
+            width: 208px;
+            height: 50px;
+            outline: none;
+            margin-right: 3px;
+            overflow: hidden;
+            color: #1A4593;
+            font-weight: bold;
+        }
+
+        .send-part {
+            margin: auto;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .bibi {
+            width: 330px;
+            height: 190px;
+            box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.161);
+            border-radius: 1rem;
+            padding: 10px;
+        }
+
+        nav {
+            margin-bottom: 20px;
+            display: flex;
+            margin-top: 20px;
+            margin-left: 260px;
+            flex-direction: row;
+        }
+
+        nav button {
+            border-radius: 0.5rem;
+            border: none;
+            padding: 10px;
+        }
+
+        #bibi-box {
+            background: rgba(255, 193, 7, 1);
+            width: 80px;
+            height: 50px;
+            border-radius: 0rem 0rem 1rem 1rem;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.161);
+        }
+
+        .main-box {
+            margin: auto;
+        }
+
+        #user {
+            background: rgba(0, 0, 0, 1);
+            opacity: 0.16;
+            width: 80px;
+            height: 30px;
+            margin-top: 30px;
+            color: #ffffff;
+        }
+
+        #loginBtn {
+            background: #499EB1;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            border: none;
+            padding: auto;
+            margin-right: 10px;
+            outline: none;
+        }
+
+        #signupBtn {
+            background: #FFC107;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            border: none;
+            outline: none;
+        }
+
+        #bibiboxBtn {
+            background: #FFC107;
+            border-radius: 50%;
+            margin-left: 10px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            outline: none;
+        }
+
+        #logoutBtn {
+            background: #499EB1;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            border: none;
+            outline: none;
+        }
+
+        #send-button {
+            outline: none;
+            width: 85px;
+            height: 50px;
+            background: rgba(108, 73, 184, 1);
+            border: none;
+            padding: 10px;
+            margin-left: 5px;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-box">
+        <nav id="nav">
+        </nav>
+        <div class="bibi">
+            <form id="sendMessage">
+                <input id="message" type="number" autocomplete="off" />
+                <div class="send-part">
+                    <input type="email" id="email" />
+                    <button id="send-button" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="17"
+                            height="28" viewBox="0 0 17 28">
+                            <defs>
+                                <style>
+                                    .a {
+                                        fill: #ffc107;
+                                    }
+                                </style>
+                            </defs>
+                            <path class="a"
+                                d="M11.684,2.812a3,3,0,0,1,4.632,0l7.643,9.281A3,3,0,0,1,21.643,17H6.357a3,3,0,0,1-2.316-4.907Z"
+                                transform="translate(17) rotate(90)" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        function logout() {
+            localStorage.removeItem("user");
+            location.href = "/";
+        }
+        $(() => {
+            if (!localStorage.getItem("user")) {
+                $("#nav").append(
+                    `<button id="loginBtn"onclick="location.href='/login'"><svg xmlns="http://www.w3.org/2000/svg" width="18.779" height="14.379" viewBox="0 0 18.779 14.379"><defs><style>.c{fill:#377786;}</style></defs><path class="c" d="M15.258,78.084H12.177a.441.441,0,0,1-.44-.44V76.177a.441.441,0,0,1,.44-.44h3.081a1.172,1.172,0,0,0,1.174-1.174V67.521a1.172,1.172,0,0,0-1.174-1.174H12.177a.441.441,0,0,1-.44-.44V64.44a.441.441,0,0,1,.44-.44h3.081a3.522,3.522,0,0,1,3.521,3.521v7.042A3.522,3.522,0,0,1,15.258,78.084Zm-1.724-7.372L7.372,64.55a.882.882,0,0,0-1.5.624v3.521H.88a.878.878,0,0,0-.88.88V73.1a.878.878,0,0,0,.88.88H5.868V77.5a.882.882,0,0,0,1.5.624l6.162-6.162A.888.888,0,0,0,13.534,70.712Z" transform="translate(0 -64)"/></svg></button> <button id="signupBtn"onclick="location.href='/signup'"><svg xmlns="http://www.w3.org/2000/svg" width="18.185" height="14.548" viewBox="0 0 18.185 14.548"><defs><style>.b{fill:#fff;opacity:0.38;}</style></defs><path class="b" d="M17.73,5.91H15.912V4.092a.456.456,0,0,0-.455-.455h-.909a.456.456,0,0,0-.455.455V5.91H12.275a.456.456,0,0,0-.455.455v.909a.456.456,0,0,0,.455.455h1.818V9.547a.456.456,0,0,0,.455.455h.909a.456.456,0,0,0,.455-.455V7.729H17.73a.456.456,0,0,0,.455-.455V6.365A.456.456,0,0,0,17.73,5.91ZM6.365,7.274A3.637,3.637,0,1,0,2.728,3.637,3.637,3.637,0,0,0,6.365,7.274Zm2.546.909H8.436a4.946,4.946,0,0,1-4.143,0H3.819A3.82,3.82,0,0,0,0,12v1.182a1.364,1.364,0,0,0,1.364,1.364h10a1.364,1.364,0,0,0,1.364-1.364V12A3.82,3.82,0,0,0,8.911,8.183Z"/></svg></button>`
+                );
+            } else {
+                $("#nav").append(`<button id="logoutBtn"onclick="logout()"><svg xmlns="http://www.w3.org/2000/svg" width="18.47" height="14.075"
+                viewBox="0 0 18.47 14.075">
+                <defs>
+                    <style>
+                        .d {
+                            opacity: 0.18;
+                        }
+                    </style>
+                </defs>
+                <path class="d"
+                    d="M18.214,71.639,12.057,77.8a.881.881,0,0,1-1.5-.623V73.655H5.571a.877.877,0,0,1-.88-.88V69.257a.877.877,0,0,1,.88-.88h4.984V64.859a.881.881,0,0,1,1.5-.623l6.157,6.157A.887.887,0,0,1,18.214,71.639ZM7.037,77.613V76.147a.441.441,0,0,0-.44-.44H3.518a1.172,1.172,0,0,1-1.173-1.173V67.5a1.172,1.172,0,0,1,1.173-1.173H6.6a.441.441,0,0,0,.44-.44V64.419a.441.441,0,0,0-.44-.44H3.518A3.519,3.519,0,0,0,0,67.5v7.037a3.519,3.519,0,0,0,3.518,3.518H6.6A.441.441,0,0,0,7.037,77.613Z"
+                    transform="translate(0 -63.979)" />
+            </svg></button>`);
+                $('#nav').append(
+                    `<button id="bibiboxBtn" onclick="location.href='/bibibox'"><svg xmlns="http://www.w3.org/2000/svg" width="16.139" height="14.122" viewBox="0 0 16.139 14.122"><defs><style>.p{fill:#fff;opacity:0.42;}</style></defs><path class="p" d="M1.009,45.113a1.008,1.008,0,0,0,1.009,1.009h12.1a1.008,1.008,0,0,0,1.009-1.009V36.035H1.009ZM6.052,38.43a.379.379,0,0,1,.378-.378H9.709a.379.379,0,0,1,.378.378v.252a.379.379,0,0,1-.378.378H6.43a.379.379,0,0,1-.378-.378ZM15.131,32H1.009A1.008,1.008,0,0,0,0,33.009v1.513a.506.506,0,0,0,.5.5H15.635a.506.506,0,0,0,.5-.5V33.009A1.008,1.008,0,0,0,15.131,32Z" transform="translate(0 -32)"/></svg></button>`
+                );
+            }
+            //const username = res.locals.user.name;
+            $("#sendMessage").submit(event => {
+                event.preventDefault();
+
+                const to = $("#email").val();
+                const message = $("#message").val();
+                const from = localStorage.getItem("user");
+                if (!from) {
+                    alert("😮 로그인 후 이용해주세요!");
+                    return;
+                }
+                $.ajax({
+                        url: "/api/chat",
+                        type: "POST",
+                        data: {
+                            to,
+                            from,
+                            message
+                        }
+                    })
+                    .done(data => {
+                        alert('📟삐삐 전달 완료!📟');
+                        location.href = "/";
+                    })
+                    .fail((request, status, error) => {
+                        alert(request.responseText);
+                    });
+
+                socket.emit("chat message", $("#email").val());
+                socket.emit("chat message", $("#m").val());
+            });
+            socket.on("chat message", msg => {
+                console.log(msg);
+                //$('#messages').append(`<li>${msg}</li>`);
+            });
+        });
+    </script>
+</body>
+
+</html>

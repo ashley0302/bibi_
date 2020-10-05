@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=”utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>📟삐삐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        #signupForm {
+            display: flex;
+            flex-direction: column;
+            width: 260px;
+            margin: auto;
+        }
+
+        #welcome {
+            margin-top: 120px;
+            margin-left: 35px;
+            margin-bottom: 10px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #info {
+            margin-bottom: 60px;
+            margin-left: 35px;
+        }
+
+        #signupbox {
+            background-color: rgba(255, 255, 255, 1);
+            width: 320px;
+            height: 400px;
+            margin: auto;
+            border-radius: 1rem;
+            padding-top: 30px;
+            box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.161);
+        }
+
+        input {
+            background-color: #f6f6f6;
+            height: 60px;
+            border-radius: 0.5rem;
+            border: none;
+            outline: none;
+            margin-bottom: 17px;
+        }
+
+        #submitBtn {
+            border: none;
+            background: none;
+            margin-left: 200px;
+            color: #4FB0C6;
+            outline: none;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        label {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <p id="welcome">📟<br>🎀안녕하세요🎀<br> 당신의 삐삐입니다.</p>
+    <p id="info">이용정보를 등록해주세요!</p>
+    <div id="signupbox">
+        <form id="signupForm">
+            <label for="name">이름</label>
+            <input type="name" id="name" autocomplete="off" />
+            <label for="email">메일</label>
+            <input type="email" id="email" autocomplete="off" />
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" autocomplete="off" />
+            <button id="submitBtn" type="submit">제출</button>
+        </form>
+    </div>
+
+
+</body>
+
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    $(function () {
+        $("#signupForm").submit(event => {
+            event.preventDefault();
+            const email = $("#email").val();
+            const password = $("#password").val();
+            const name = $("#name").val();
+            console.log(name);
+            $.ajax({
+                    url: "/api/user/signup",
+                    type: "POST",
+                    data: {
+                        name,
+                        email,
+                        password,
+                    }
+                })
+                .done(() => {
+                    alert("successed!");
+                    location.href = "/login";
+                })
+                .fail((request, status, error) => {
+                    alert(request.responseText);
+                });
+        });
+    });
+</script>
+
+</html>

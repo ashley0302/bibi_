@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=”utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Wallpoet&display=swap" rel="stylesheet">
+    <title>📟삐삐</title>
+    <style>
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .bibi-box {
+            margin: 10px;
+        }
+
+        body {
+            background: rgba(79, 176, 198, 1);
+            display: flex;
+            margin: auto;
+            flex-direction: column;
+        }
+
+        #list {
+            margin: auto;
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        #func {
+            display: flex;
+            margin-top: 10px;
+            flex-direction: row;
+        }
+
+        .bibi-message {
+            background: rgba(79, 176, 198, 1);
+            box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.161);
+            width: 300px;
+            height: 150px;
+            margin: auto;
+            font-size: 15px;
+            padding: 15px;
+            list-style: none;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column-reverse;
+            margin-bottom: 10px;
+        }
+
+        #removeBtn {
+            background: rgba(108, 73, 184, 1);
+            width: 70px;
+            height: 30px;
+            border: none;
+            border-radius: 0.4rem;
+            margin-left: 5px;
+        }
+
+        #from {
+            background: rgba(113, 160, 216, 1);
+            width: 240px;
+            height: 30px;
+            border-radius: 0.4rem;
+            font-size: 16px;
+            color: #1A4593;
+            padding-left: 10px;
+            font-weight: bold;
+        }
+
+        #message {
+            background: rgba(79, 134, 198, 1);
+            height: 80px;
+            border-radius: 0.5rem;
+            color: #ffffff;
+            font-family: 'Wallpoet', cursive;
+            font-size: 70px;
+            text-align: center;
+        }
+
+        #logoutBtn {
+            background: #499EB1;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            border: none;
+            margin-right: 10px;
+            outline: none;
+        }
+
+        #homeBtn {
+            background: #FFC107;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            border: none;
+            outline: none;
+        }
+
+        #tool {
+            display: flex;
+            margin-top: 20px;
+            flex-direction: row;
+            margin-left: 260px;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="tool">
+        <button id="logoutBtn" onclick="logout()"><svg xmlns="http://www.w3.org/2000/svg" width="18.47" height="14.075"
+                viewBox="0 0 18.47 14.075">
+                <defs>
+                    <style>
+                        .a {
+                            opacity: 0.18;
+                        }
+                    </style>
+                </defs>
+                <path class="a"
+                    d="M18.214,71.639,12.057,77.8a.881.881,0,0,1-1.5-.623V73.655H5.571a.877.877,0,0,1-.88-.88V69.257a.877.877,0,0,1,.88-.88h4.984V64.859a.881.881,0,0,1,1.5-.623l6.157,6.157A.887.887,0,0,1,18.214,71.639ZM7.037,77.613V76.147a.441.441,0,0,0-.44-.44H3.518a1.172,1.172,0,0,1-1.173-1.173V67.5a1.172,1.172,0,0,1,1.173-1.173H6.6a.441.441,0,0,0,.44-.44V64.419a.441.441,0,0,0-.44-.44H3.518A3.519,3.519,0,0,0,0,67.5v7.037a3.519,3.519,0,0,0,3.518,3.518H6.6A.441.441,0,0,0,7.037,77.613Z"
+                    transform="translate(0 -63.979)" />
+            </svg></button>
+        <button id="homeBtn" onclick="location.href='/'"><svg xmlns="http://www.w3.org/2000/svg" width="19.44"
+                height="15.482" viewBox="0 0 19.44 15.482">
+                <defs>
+                    <style>
+                        .a {
+                            opacity: 0.36;
+                        }
+
+                        .b {
+                            fill: #fff;
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                        }
+                    </style>
+                </defs>
+                <g class="a" transform="translate(-0.38 -1.852)">
+                    <path class="b" d="M8.734,17.309v-5.05H12.1v5.05h4.209V10.575h2.525L10.417,3,2,10.575H4.525v6.734Z"
+                        transform="translate(-0.317 -0.475)" />
+                </g>
+            </svg></button>
+    </div>
+    <div class="bibi-box">
+        <ul id="list" class="list"></ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        //const num = 0;
+        function logout() {
+            localStorage.removeItem("user");
+            location.href = "/";
+        }
+        $(() => {
+            if (!localStorage.getItem("user")) {
+                alert('로그인을 하세요!');
+                location.href = "/";
+                return;
+            }
+        });
+        $(function () {
+            const user = localStorage.getItem("user");
+            $.ajax({
+                url: "/api/chat/list",
+                type: "POST",
+                data: {
+                    user
+                }
+            }).then(data => {
+                for (const msg of data) {
+                    $("#list").append(
+                        `<li class="bibi-message" id="bibi-message-${msg._id}"><div id="func"><p id="from">${msg.from}의 삐삐</p><button id="removeBtn"onclick="remove('${msg._id}')">삭제</button></div><p id="message">${msg.message}</p></li>`
+                    );
+                }
+            });
+        });
+        //<li class="bibi-message" id="bibi-message-${msg._id}
+        function remove(data) {
+            $(`#bibi-message-${data}`).remove();
+            $.ajax({
+                url: `/api/chat/${data}`,
+                type: "DELETE"
+            }).done(() => {
+
+            });
+        }
+    </script>
+</body>
+
+</html>
